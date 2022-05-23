@@ -67,7 +67,7 @@ def login():
 @app.route("/register", methods=["GET", "POST"])
 def register():
     """register new user"""
-    if request.method = "POST":
+    if request.method == "POST":
 
         username = request.form.get("username")
         password = request.form.get("password")
@@ -82,5 +82,12 @@ def register():
         #add the user to the database
         db.execute("INSERT INTO users (username,hash) VALUES (?, ?)", username, 
         generate_password_hash(password, method='pbkdf2:sha256', salt_length=8))
-        
+
+        #log user in
+        rows = db.execute("SELECT * FROM users WHERE username = ?", username)
+        session["user_id"] = rows[0]["id"]
+        return redirect("/")
+    else:
+        return render_template("register.html")
+
     

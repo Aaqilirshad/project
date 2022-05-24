@@ -1,12 +1,10 @@
 import os
-from tkinter import INSERT
-from xmlrpc.client import APPLICATION_ERROR
 from cs50 import SQL
 from flask import Flask, flash, redirect, render_template, request, session
 from flask_session import Session
 from tempfile import mkdtemp
-from importlib_metadata import method_cache
 from werkzeug.security import check_password_hash, generate_password_hash
+from helpers import login_required, apology, usd
 
 #configure application
 app = Flask(__name__)
@@ -18,6 +16,9 @@ app.config["TEMPLATES_AUTO_RELOAD"] = True
 app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
+
+#filter
+app.jinja_env.filters["usd"] = usd
 
 db = SQL("sqlite:///shopper.db")
 

@@ -6,3 +6,13 @@
 .top-sp{
     margin-top: 35px;
 }
+#fashion-card{
+    background-image: url(watch.jpg);
+    background-position: right;
+}
+#nav-bar{
+    background-image: url(header.jpg);
+    background-position: left;
+    background-repeat: no-repeat;
+    background-size: cover;
+}

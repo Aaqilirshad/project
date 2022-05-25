@@ -36,6 +36,16 @@ def after_request(response):
 def index():
     """Home page"""
     return render_template("index.html")
+
+@app.route("/sell")
+@login_required
+def sell():
+    return render_template("sell.html")
+
+@app.route("/wishlist")
+@login_required
+def wishlist():
+    return render_template("wishlist.html")
     
 @app.route("/login", methods=["GET", "POST"])
 def login():
@@ -107,5 +117,36 @@ def logout():
 
     # Redirect user to login form
     return redirect("/")
+
+@app.route("/reset", methods=["GET", "POST"])
+def reset():
+    if request.method == "POST":
+
+        # Ensure username was submitted
+        if not request.form.get("username"):
+            return apology("must provide username", 403)
+
+        # Ensure password was submitted
+        elif not request.form.get("password"):
+            return apology("must provide password", 403)
+
+        # Query database for username
+        rows = db.execute("SELECT * FROM users WHERE username = ?", request.form.get("username"))
+
+        # Ensure username exists and password is correct
+        if len(rows) != 1 or not check_password_hash(rows[0]["hash"], request.form.get("password")):
+            return apology("invalid username and/or password", 403)
+
+        # Ensure new passwors was submitted
+        if not request.form.get("nw_password"):
+            return apology("must provide a new password", 403)
+
+        # update the database for the new password
+        db.execute("UPDATE users SET hash = :nwpw WHERE id = :id", nwpw=generate_password_hash(
+            request.form.get("nw_password"), method='pbkdf2:sha256', salt_length=8), id=rows[0]["id"])
+        return redirect("/login")
+
+    else:
+        return render_template("reset.html")
 
 

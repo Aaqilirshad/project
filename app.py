@@ -32,6 +32,7 @@ def after_request(response):
     return response
 
 @app.route("/")
+@login_required
 def index():
     """Home page"""
     return render_template("index.html")
@@ -96,5 +97,15 @@ def register():
         return redirect("/")
     else:
         return render_template("register.html")
+
+@app.route("/logout")
+def logout():
+    """Log user out"""
+
+    # Forget any user_id
+    session.clear()
+
+    # Redirect user to login form
+    return redirect("/")
 
 

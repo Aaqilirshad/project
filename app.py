@@ -22,6 +22,7 @@ app.jinja_env.filters["usd"] = usd
 
 db = SQL("sqlite:///shopper.db")
 
+
 @app.after_request
 def after_request(response):
     """Ensure responses aren't cached"""
@@ -30,6 +31,11 @@ def after_request(response):
     response.headers["Pragma"] = "no-cache"
     return response
 
+@app.route("/")
+def index():
+    """Home page"""
+    return render_template("index.html")
+    
 @app.route("/login", methods=["GET", "POST"])
 def login():
     """Log user in"""
@@ -91,4 +97,4 @@ def register():
     else:
         return render_template("register.html")
 
-    
+

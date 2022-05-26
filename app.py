@@ -22,6 +22,24 @@ app.jinja_env.filters["usd"] = usd
 
 db = SQL("sqlite:///shopper.db")
 
+catergories = [
+    "Automotive",
+    "Clothing & Fashion",
+    "Computers",
+    "Electronics",
+    "Entertainment & Arts",
+    "Gifts",
+    "Health & Beauty",
+    "Home & Garden",
+    "Office & Professional",
+    "Software",
+    "Sports & Outdoors",
+    "Stationaries",
+    "Travel",
+    "Other"
+
+]
+
 
 @app.after_request
 def after_request(response):
@@ -40,7 +58,7 @@ def index():
 @app.route("/sell")
 @login_required
 def sell():
-    return render_template("sell.html")
+    return render_template("sell.html", catergories=catergories)
 
 @app.route("/wishlist")
 @login_required

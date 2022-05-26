@@ -1,4 +1,5 @@
 import os
+import re
 from cs50 import SQL
 from flask import Flask, flash, redirect, render_template, request, session
 from flask_session import Session
@@ -53,12 +54,22 @@ def after_request(response):
 @login_required
 def index():
     """Home page"""
-    return render_template("index.html")
+    
+    return render_template("index.html", catergories=catergories)
 
-@app.route("/sell")
+@app.route("/sell", methods=["GET", "POST"])
 @login_required
 def sell():
-    return render_template("sell.html", catergories=catergories)
+
+    if request.method == "POST":
+        price = request.form.get("price")
+        #insert into database
+        db.execute("INSERT INTO products (user_id, name, catergory, description, price) VALUES (?,?,?,?,?)",
+        session["user_id"], request.form.get("product_name"), request.form.get("catergory"), request.form.get("description"), price)
+
+        return redirect("/")
+    else:
+        return render_template("sell.html", catergories=catergories)
 
 @app.route("/wishlist")
 @login_required

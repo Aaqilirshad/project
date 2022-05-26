@@ -5,41 +5,46 @@
 {% block main %}
 <div class="container">
     <p style="font-size:40px; font-family: 'Comfortaa', cursive; font-size:xx-large; text-align:center;">Sell Your Item!</p>
-    <div class="row g-2">
-        <div class="col-md">
-          <div class="form-floating">
-            <input type="text" class="form-control" id="floatingInputGrid" placeholder="Product Name" name="product_name" required>
-            <label for="floatingInputGrid">Product Name</label>
+    <form action="/sell" method="post">
+        <div class="row g-2">
+            <div class="col-md">
+              <div class="form-floating">
+                <input type="text" class="form-control" id="floatingInputGrid" placeholder="Product Name" name="product_name" required>
+                <label for="floatingInputGrid">Product Name</label>
+              </div>
+            </div>
+            <div class="col-md">
+              <div class="form-floating">
+                <select class="form-select" id="floatingSelectGrid" name="catergory" required>
+                  <option selected disabled>Select catergory</option>
+                    {% for item in catergories %}
+                    <option value="{{ item }}">{{ item }}</option>
+                    {% endfor %}
+                </select>
+                <label for="floatingSelectGrid">catergories</label>
+              </div>
+            </div>
           </div>
-        </div>
-        <div class="col-md">
-          <div class="form-floating">
-            <select class="form-select" id="floatingSelectGrid" name="catergory" required>
-              <option selected disabled>Select catergory</option>
-                {% for item in catergories %}
-                <option value="{{ item }}">{{ item }}</option>
-                {% endfor %}
-            </select>
-            <label for="floatingSelectGrid">catergories</label>
+          
+          <div class="form-floating" style="margin-top:20px;">
+            <textarea class="form-control" placeholder="Description" id="floatingTextarea2" style="height: 100px" name="description"></textarea>
+            <label for="floatingTextarea2">Description</label>
           </div>
-        </div>
-      </div>
-      
-      <div class="form-floating" style="margin-top:20px;">
-        <textarea class="form-control" placeholder="Description" id="floatingTextarea2" style="height: 100px" name="description"></textarea>
-        <label for="floatingTextarea2">Description</label>
-      </div>
 
-      <div class="input-group mb-3" style="margin-top:20px;">
-        <span class="input-group-text">$</span>
-        <input type="number" class="form-control" min="0.00" max="10000.00" step="0.01" id="priceform" placeholder="Price" required>
-      </div>
+          <div class="input-group mb-3" style="margin-top:20px;">
+            <span class="input-group-text">$</span>
+            <input type="number" class="form-control" min="0.00" max="10000.00" step="0.01" id="priceform" placeholder="Price" name="price" required>
+          </div>
 
-      <div class="form-floating mb-3" style="margin-top:30px;">
-        <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
-        <label for="floatingInput">Email address</label>
-      </div>
+          <div class="form-floating mb-3" style="margin-top:30px;">
+            <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
+            <label for="floatingInput">Email address</label>
+          </div>
 
+          <div class="d-grid gap-2">
+            <input type="submit" class="btn btn-outline-secondary">
+          </div>
+      </form>
 </div>
 {% endblock %}
 <!--<div class="mb-3">

@@ -14,4 +14,39 @@ Home
       <a href="#" class="btn btn-outline-light">Shop Fashion & Clothing</a>
     </div>
   </div>
+
+  <div style="text-align:left; margin-top:50px">
+    <div class="dropdown">
+      <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+        catergories
+      </a>
+    
+      <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+        {% for item in catergories %}
+        <li><a class="dropdown-item" href="/{{ item }}">{{ item }}</a></li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+
+
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4">
+      {% for i in range(30) %}
+      <!--<div class="col" style="margin: 10px; float:left; text-align:center">-->
+        <div class="d-flex justify-content-evenly" style="margin-top:30px;">
+            <div class="card" style="width: 18rem;">
+              <img src="static/cart.jpg" class="card-img-top" alt="...">
+              <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                <a href="#" class="btn btn-primary">Go somewhere</a>
+              </div>
+            </div>
+        </div>
+     <!-- </div>-->
+      {% endfor %}
+
+
+    </div>
+  </div>
 {% endblock %}

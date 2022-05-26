@@ -16,3 +16,11 @@
     background-repeat: no-repeat;
     background-size: cover;
 }
+.divitem{
+    background-color: aqua;
+    height: 250px;
+    width: 250px;
+    border: 2px;
+    float: left;
+    margin: 20px;
+}

@@ -23,7 +23,7 @@ app.jinja_env.filters["usd"] = usd
 
 db = SQL("sqlite:///shopper.db")
 
-catergories = [
+categories = [
     "Automotive",
     "Clothing&Fashion",
     "Computers",
@@ -53,7 +53,7 @@ def after_request(response):
 def index():
     """Home page"""
     items = db.execute("SELECT * FROM products")
-    return render_template("index.html", catergories=catergories, items=items)
+    return render_template("index.html", categories=categories, items=items)
 
 @app.route("/sell", methods=["GET", "POST"])
 @login_required
@@ -67,7 +67,7 @@ def sell():
 
         return redirect("/")
     else:
-        return render_template("sell.html", catergories=catergories)
+        return render_template("sell.html", categories=categories)
 
 @app.route("/wishlist", methods=["GET", "POST"])
 @login_required
@@ -185,10 +185,10 @@ def reset():
 @login_required
 def products():
     items = db.execute("SELECT * FROM products WHERE catergory = ?", request.form.get("catergory"))
-    return render_template("products.html", items=items)
+    return render_template("products.html", items=items)"""
 
-@app.route("/catergory", methods=["GET", "POST"])
+@app.route("/<string:name>", methods=["GET", "POST"])
 @login_required
-def catergory():
-    products = db.execute("SELECT * FROM products WHERE catergory = ?", request.form.get("catergory"))
-    return render_template("index.html", items=products)"""
+def category(name):
+    products = db.execute("SELECT * FROM products WHERE catergory = ?", name)
+    return render_template("products.html", items=products, name=name)

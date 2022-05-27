@@ -3,6 +3,30 @@
 {% block title %} Wishlist {% endblock %}
 
 {% block main %}
-    Wishlist
+<div class="container">
+        <table class="table caption-top">
+            <caption style="text-align:center; font-size:30px; font-family: 'Comfortaa', cursive;">Wishlist</caption>
+            <thead>
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Product Name</th>
+                <th scope="col">Price</th>
+                <th scope="col">Catergory</th>
+                <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody>
+                {% for row in rows %}
+            <tr>
+                <th scope="row">{{row.id}}</th>
+                <td>{{row.name}}</td>
+                <td>{{ row.price | usd}}</td>
+                <td>{{ row.catergory }}</td>
+                <td><a href = "mailto: {{row.email}}" style="text-decoration:none;" class="btn btn-outline-info">Contact Seller</a></td>
+            </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+</div>
 {% endblock %}
 

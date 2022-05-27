@@ -25,18 +25,16 @@ db = SQL("sqlite:///shopper.db")
 
 catergories = [
     "Automotive",
-    "Clothing & Fashion",
+    "Clothing&Fashion",
     "Computers",
     "Electronics",
-    "Entertainment & Arts",
-    "Gifts",
-    "Health & Beauty",
-    "Home & Garden",
-    "Office & Professional",
+    "Entertainment&Arts",
+    "Health&Beauty",
+    "Home&Garden",
+    "Office&Professional",
     "Software",
-    "Sports & Outdoors",
+    "Sports&Outdoors",
     "Stationaries",
-    "Travel",
     "Other"
 
 ]
@@ -50,7 +48,7 @@ def after_request(response):
     response.headers["Pragma"] = "no-cache"
     return response
 
-@app.route("/")
+@app.route("/", methods=["GET", "POST"])
 @login_required
 def index():
     """Home page"""
@@ -71,10 +69,15 @@ def sell():
     else:
         return render_template("sell.html", catergories=catergories)
 
-@app.route("/wishlist")
+@app.route("/wishlist", methods=["GET", "POST"])
 @login_required
 def wishlist():
-    return render_template("wishlist.html")
+    if request.method == "POST":
+        db.execute("INSERT INTO wishlist (user_id, product_id) VALUES(?,?)", session["user_id"], request.form.get("product_id"))
+        return redirect("/wishlist")
+    else:
+        rows = db.execute("SELECT * FROM products WHERE id IN (SELECT product_id FROM wishlist WHERE user_id = :id)", id = session["user_id"])
+        return render_template("wishlist.html", rows=rows)
     
 @app.route("/login", methods=["GET", "POST"])
 def login():
@@ -178,4 +181,14 @@ def reset():
     else:
         return render_template("reset.html")
 
+"""@app.route("/products", methods=["POST"])
+@login_required
+def products():
+    items = db.execute("SELECT * FROM products WHERE catergory = ?", request.form.get("catergory"))
+    return render_template("products.html", items=items)
 
+@app.route("/catergory", methods=["GET", "POST"])
+@login_required
+def catergory():
+    products = db.execute("SELECT * FROM products WHERE catergory = ?", request.form.get("catergory"))
+    return render_template("index.html", items=products)"""

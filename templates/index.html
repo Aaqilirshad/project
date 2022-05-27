@@ -14,21 +14,23 @@ Home
       <a href="#" class="btn btn-outline-light">Shop Fashion & Clothing</a>
     </div>
   </div>
-
-  <div style="text-align:left; margin-top:50px">
-    <div class="dropdown">
-      <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-        catergories
-      </a>
-    
-      <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-        {% for item in catergories %}
-        <li><a class="dropdown-item" href="/{{ item }}">{{ item }}</a></li>
-        {% endfor %}
-      </ul>
-    </div>
-  </div>
-
+<div style="text-align:left; margin-top:50px; width:165px" ></div>
+  <form action="/catergory" mehtod="post">
+      
+          <div class="col-auto">
+            <select class="form-select" id="autoSizingSelect" required name="catergory">
+              <option selected disabled>Select catergory</option>
+                {% for item in catergories %}
+                <option value="{{ item }}">{{ item }}</option>
+                {% endfor %}
+            </select>
+          </div>
+          <div class="col-auto" style="margin-top:10px">
+            <input type="submit" class="btn btn-primary btn-sm" value="Filter by Catergory">
+          </div>
+        
+  </form>
+</div>
 
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4">
       {% for row in items %}
@@ -38,7 +40,7 @@ Home
               <div class="card-body">
                 <h5 class="card-title">{{ row.name }}</h5>
                 <p class="card-text">{{ row.price | usd}}</p>
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#P{{row.id}}">View More</button>        
+                <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#P{{row.id}}">View More</button>        
                     <div class="modal" tabindex="-1" id="P{{row.id}}">
                       <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">
@@ -49,11 +51,11 @@ Home
                           <div class="modal-body">
                             <p>{{row.description}}.</p>
                             <p>Price: {{row.price | usd}}</p>
-                            <p>Contact Seller: <a href = "mailto: {{row.email}}">{{row.email}}</a> </p>
+                            <p><a href = "mailto: {{row.email}}" style="text-decoration:none;" class="btn btn-outline-info">Contact Seller</a> </p>
                           </div>
                           <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <form action="#" method="post">
+                            <form action="/wishlist" method="post">
                               <input type="hidden" value="{{row.id}}" name="product_id">
                               <input type="submit" class="btn btn-primary" value="Add to wishlist"></button>
                             </form>

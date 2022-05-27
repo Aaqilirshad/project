@@ -31,19 +31,39 @@ Home
 
 
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4">
-      {% for i in range(30) %}
-      <!--<div class="col" style="margin: 10px; float:left; text-align:center">-->
+      {% for row in items %}
         <div class="d-flex justify-content-evenly" style="margin-top:30px;">
             <div class="card" style="width: 18rem;">
               <img src="static/cart.jpg" class="card-img-top" alt="...">
               <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
+                <h5 class="card-title">{{ row.name }}</h5>
+                <p class="card-text">{{ row.price | usd}}</p>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#P{{row.id}}">View More</button>        
+                    <div class="modal" tabindex="-1" id="P{{row.id}}">
+                      <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title">{{row.name}}</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                          </div>
+                          <div class="modal-body">
+                            <p>{{row.description}}.</p>
+                            <p>Price: {{row.price | usd}}</p>
+                            <p>Contact Seller: <a href = "mailto: {{row.email}}">{{row.email}}</a> </p>
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <form action="#" method="post">
+                              <input type="hidden" value="{{row.id}}" name="product_id">
+                              <input type="submit" class="btn btn-primary" value="Add to wishlist"></button>
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+                    </div>                  
               </div>
             </div>
         </div>
-     <!-- </div>-->
       {% endfor %}
 
 

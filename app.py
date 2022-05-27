@@ -54,8 +54,8 @@ def after_request(response):
 @login_required
 def index():
     """Home page"""
-    
-    return render_template("index.html", catergories=catergories)
+    items = db.execute("SELECT * FROM products")
+    return render_template("index.html", catergories=catergories, items=items)
 
 @app.route("/sell", methods=["GET", "POST"])
 @login_required
@@ -64,8 +64,8 @@ def sell():
     if request.method == "POST":
         price = request.form.get("price")
         #insert into database
-        db.execute("INSERT INTO products (user_id, name, catergory, description, price) VALUES (?,?,?,?,?)",
-        session["user_id"], request.form.get("product_name"), request.form.get("catergory"), request.form.get("description"), price)
+        db.execute("INSERT INTO products (user_id, name, catergory, description, price, email) VALUES (?,?,?,?,?,?)",
+        session["user_id"], request.form.get("product_name"), request.form.get("catergory"), request.form.get("description"), price, request.form.get("email"))
 
         return redirect("/")
     else:

@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+
+{% block title %}My Items{% endblock %}
+
+{% block main %}
+
+{% if not items %}
+<p>You haven't posted any items yet!</p>
+{% endif %}
+<div class="row row-cols-1 row-cols-sm-2 row-cols-md-4">
+    {% for row in items %}
+    <div class="d-flex justify-content-evenly" style="margin-top:30px;">
+
+        <div class="card mb-3" style="max-width: 540px;">
+            <div class="row g-0">
+            <div class="col-md-4">
+                <img src="static/cart.jpg" class="img-fluid rounded-start" alt="...">
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                <h5 class="card-title">{{ row.name }}</h5>
+                <p class="card-text">{{ row.description }}.</p>
+                <p class="card-text"><small class="text-muted">Price : {{ row.price | usd}}</small></p>
+                <form action="/myitems" method="post">
+                    <input type="hidden" value="{{ row.id }}" name="id">
+                    <input type="submit" value="Remove Item" class="btn btn-warning">
+                </form>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

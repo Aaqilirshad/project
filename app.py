@@ -36,8 +36,7 @@ categories = [
     "Sports&Outdoors",
     "Stationaries",
     "Other"
-
-]
+    ]
 
 
 @app.after_request
@@ -181,14 +180,25 @@ def reset():
     else:
         return render_template("reset.html")
 
-"""@app.route("/products", methods=["POST"])
-@login_required
-def products():
-    items = db.execute("SELECT * FROM products WHERE catergory = ?", request.form.get("catergory"))
-    return render_template("products.html", items=items)"""
-
 @app.route("/<string:name>", methods=["GET", "POST"])
 @login_required
 def category(name):
     products = db.execute("SELECT * FROM products WHERE catergory = ?", name)
     return render_template("products.html", items=products, name=name)
+
+@app.route("/myitems", methods=["GET", "POST"])
+@login_required
+def myitems():
+    if request.method == "GET":
+        products = db.execute("SELECT * FROM products WHERE user_id = ?", session["user_id"])
+        return render_template("myitems.html", items=products)
+    else:
+        db.execute("DELETE FROM products WHERE id = ?", request.form.get("id"))
+        return redirect("/myitems")
+
+@app.route("/remove", methods=["GET", "POST"])
+def remove():
+    if request.method == "POST":
+        db.execute("DELETE FROM wishlist WHERE user_id = ? AND product_id = ?", 
+        session["user_id"], request.form.get("id"))
+        return redirect("/wishlist")

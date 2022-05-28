@@ -13,6 +13,7 @@
                 <th scope="col">Price</th>
                 <th scope="col">Catergory</th>
                 <th scope="col"></th>
+                <th scope="col"></th>
             </tr>
             </thead>
             <tbody>
@@ -23,10 +24,18 @@
                 <td>{{ row.price | usd}}</td>
                 <td>{{ row.catergory }}</td>
                 <td><a href = "mailto: {{row.email}}" style="text-decoration:none;" class="btn btn-outline-info">Contact Seller</a></td>
+                <td>
+                    <form action="/remove" method="post">
+                    <input type="hidden" value="{{row.id}}" name="id"> <button type="submit" class="btn-close" aria-label="Close"></button>
+                    </form>
+                </td>
             </tr>
                 {% endfor %}
             </tbody>
         </table>
+        {% if not rows %}
+        <p>You haven't added any items to the wishlist yet!</p>
+        {% endif %}
 </div>
 {% endblock %}
 

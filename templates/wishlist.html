@@ -8,7 +8,6 @@
             <caption style="text-align:center; font-size:30px; font-family: 'Comfortaa', cursive;">Wishlist</caption>
             <thead>
             <tr>
-                <th scope="col">Id</th>
                 <th scope="col">Product Name</th>
                 <th scope="col">Price</th>
                 <th scope="col">Catergory</th>
@@ -19,7 +18,6 @@
             <tbody>
                 {% for row in rows %}
             <tr>
-                <th scope="row">{{row.id}}</th>
                 <td>{{row.name}}</td>
                 <td>{{ row.price | usd}}</td>
                 <td>{{ row.catergory }}</td>

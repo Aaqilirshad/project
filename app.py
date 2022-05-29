@@ -60,6 +60,9 @@ def sell():
 
     if request.method == "POST":
         price = request.form.get("price")
+        #check for errors
+        if not request.form.get("catergory"):
+            return apology("Select a Category", 403)
         #insert into database
         db.execute("INSERT INTO products (user_id, name, catergory, description, price, email) VALUES (?,?,?,?,?,?)",
         session["user_id"], request.form.get("product_name"), request.form.get("catergory"), request.form.get("description"), price, request.form.get("email"))
@@ -202,3 +205,8 @@ def remove():
         db.execute("DELETE FROM wishlist WHERE user_id = ? AND product_id = ?", 
         session["user_id"], request.form.get("id"))
         return redirect("/wishlist")
+
+@app.route("/search", methods=["GET", "POST"])
+def search():
+    prdcts = db.execute("SELECT * FROM products WHERE name LIKE ?", "%" + request.form.get("q") + "%")
+    return render_template("products.html", items=prdcts, name=request.form.get("q"))

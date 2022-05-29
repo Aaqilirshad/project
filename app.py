@@ -206,7 +206,7 @@ def remove():
         session["user_id"], request.form.get("id"))
         return redirect("/wishlist")
 
-@app.route("/search", methods=["GET", "POST"])
+@app.route("/search")
 def search():
-    prdcts = db.execute("SELECT * FROM products WHERE name LIKE ?", "%" + request.form.get("q") + "%")
-    return render_template("products.html", items=prdcts, name=request.form.get("q"))
+    prdcts = db.execute("SELECT * FROM products WHERE name LIKE ?", "%" + request.args.get("q") + "%")
+    return render_template("products.html", items=prdcts, name=request.args.get("q"))

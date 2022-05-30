@@ -1,11 +1,12 @@
 import os
-import re
 from cs50 import SQL
 from flask import Flask, flash, redirect, render_template, request, session
 from flask_session import Session
 from tempfile import mkdtemp
 from werkzeug.security import check_password_hash, generate_password_hash
 from helpers import login_required, apology, usd
+from flask_mail import Mail, Message
+
 
 #configure application
 app = Flask(__name__)
@@ -17,6 +18,19 @@ app.config["TEMPLATES_AUTO_RELOAD"] = True
 app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
+
+#comfigure app to use flask-mail
+app.config["MAIL_SERVER"] = 'mail.gmx.com'
+app.config["MAIL_PORT"] = 25
+app.config["MAIL_USE_TLS"] = False
+app.config["MAIL_USE_SSL"] = True
+app.config["MAIL_USERNAME"] = 'e-store@gmx.com'
+app.config["MAIL_PASSWORD"] = 'icecream18106'
+app.config["MAIL_DEFAULT_SENDER"] = 'e-store@gmx.com'
+app.config["MAIL_ASCII_ATTACHMENTS"] = False
+
+mail = Mail(app)
+
 
 #filter
 app.jinja_env.filters["usd"] = usd
@@ -210,3 +224,11 @@ def remove():
 def search():
     prdcts = db.execute("SELECT * FROM products WHERE name LIKE ?", "%" + request.args.get("q") + "%")
     return render_template("products.html", items=prdcts, name=request.args.get("q"))
+
+@app.route("/contact", methods=["GET", "POST"])
+def contact():
+    rows = db.execute("SELECT * FROM products WHERE id= ?", request.form.get("id"))
+    msg = Message(rows[0]["name"], recipients=[rows[0]["email"]])
+    msg.body = request.form.get("message")
+    mail.send(msg)
+    return redirect("/")

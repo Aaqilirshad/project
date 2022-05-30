@@ -46,7 +46,7 @@
               </li>
             </ul>
             <form class="d-flex" action="/search" method="get">
-              <input class="form-control me-2" type="text" placeholder="Search" aria-label="Search" name="q">
+              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="q">
               <button class="btn btn-outline-success" type="submit">Search</button>
             </form>
             <div class="me-3">
@@ -64,13 +64,6 @@
           
         </div>
       </nav>
-      <!--  {% if get_flashed_messages() %}
-          <header>
-              <div class="alert alert-primary mb-0 text-center" role="alert">
-                  {{ get_flashed_messages() | join(" ") }}
-              </div>
-          </header>
-        {% endif %} -->
 
       <main class="container-fluid py-5 text-center">
           {% block main %}{% endblock %}

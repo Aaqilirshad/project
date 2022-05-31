@@ -20,14 +20,16 @@ app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
 
 #comfigure app to use flask-mail
-app.config["MAIL_SERVER"] = 'mail.gmx.com'
-app.config["MAIL_PORT"] = 25
+app.config["DEBUG"] = True
+app.config["MAIL_SERVER"] = 'smtp.gmail.com'
+app.config["MAIL_PORT"] = 465
 app.config["MAIL_USE_TLS"] = False
 app.config["MAIL_USE_SSL"] = True
-app.config["MAIL_USERNAME"] = 'e-store@gmx.com'
+app.config["MAIL_USERNAME"] = 'info.estore50@gmail.com'
 app.config["MAIL_PASSWORD"] = 'icecream18106'
-app.config["MAIL_DEFAULT_SENDER"] = 'e-store@gmx.com'
+app.config["MAIL_DEFAULT_SENDER"] = ('E-Store', 'info.estore50@gmail.com')
 app.config["MAIL_ASCII_ATTACHMENTS"] = False
+app.config["MAIL_DEBUG"] = True
 
 mail = Mail(app)
 
@@ -229,6 +231,8 @@ def search():
 def contact():
     rows = db.execute("SELECT * FROM products WHERE id= ?", request.form.get("id"))
     msg = Message(rows[0]["name"], recipients=[rows[0]["email"]])
-    msg.body = request.form.get("message")
+   # msg.body = request.form.get("message")
+    msg.html = render_template("mail.html", message=request.form.get("message"),
+    first=request.form.get("first"), last=request.form.get("last"), email=request.form.get("email"), product=rows[0]["name"], price=rows[0]["price"])
     mail.send(msg)
     return redirect("/")

@@ -21,13 +21,77 @@
                 <td>{{row.name}}</td>
                 <td>{{ row.price | usd}}</td>
                 <td>{{ row.catergory }}</td>
-                <td><a href = "mailto: {{row.email}}" style="text-decoration:none;" class="btn btn-outline-info">Contact Seller</a></td>
+                <td><button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#P{{row.id}}">View More</button></td>
                 <td>
                     <form action="/remove" method="post">
                     <input type="hidden" value="{{row.id}}" name="id"> <button type="submit" class="btn-close" aria-label="Close"></button>
                     </form>
                 </td>
             </tr>
+                                <div class="modal fade" tabindex="-1" id="P{{row.id}}">
+                                    <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                        <h5 class="modal-title">{{row.name}}</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                        <p>{{row.description}}.</p>
+                                        <p>Price: {{row.price | usd}}</p>
+                                        <button class="btn btn-primary" data-bs-target="#c{{row.id}}" data-bs-toggle="modal">Contact Seller</button>
+                                        </div>
+                                        <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <form action="/wishlist" method="post">
+                                            <input type="hidden" value="{{row.id}}" name="product_id">
+                                            <input type="submit" class="btn btn-primary" value="Add to wishlist"></button>
+                                        </form>
+                                        </div>
+                                    </div>
+                                    </div>
+                                </div>                  
+                            </div>
+                        </div>
+                            <div class="modal fade" id="c{{row.id}}" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+                                <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalToggleLabel2">Contact</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                    <!--Body content goes here-->
+                                                <form class="row g-3" action="/contact" method="post">
+                                                <div class="col-md-6">
+                                                    <label for="first" class="form-label">First Name</label>
+                                                    <input type="text" class="form-control" id="first" required name="first">
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <label for="last" class="form-label">Last Name</label>
+                                                    <input type="text" class="form-control" id="last" required name="last">
+                                                </div>
+                                                <div class="col-12">
+                                                    <label for="exampleFormControlInput1" class="form-label">Email address</label>
+                                                    <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com" name="email">
+                                                </div>
+                                                <div class="col-12">
+                                                    <label for="exampleFormControlTextarea1" class="form-label">Message</label>
+                                                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="5" style="text-align:center" name="message">Hi!, I'm interested in "{{row.name}}" , Can i get more information about the product. Thank you!</textarea>
+                                                </div>
+                                                <input type="hidden" value="{{row.id}}" name="id">
+
+                                                <div class="col-12">
+                                                    <button type="submit" class="btn btn-primary">Send</button>
+                                                </div>
+                                                </form>
+
+                                    </div>
+                                    <div class="modal-footer">
+                                    <button class="btn btn-primary" data-bs-toggle="modal">Close</button>
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
                 {% endfor %}
             </tbody>
         </table>

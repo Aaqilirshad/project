@@ -119,22 +119,21 @@ Home
                           <form class="row g-3" action="/contact" method="post">
                             <div class="col-md-6">
                               <label for="first" class="form-label">First Name</label>
-                              <input type="text" class="form-control" id="first" required>
+                              <input type="text" class="form-control" id="first" required name="first">
                             </div>
                             <div class="col-md-6">
                               <label for="last" class="form-label">Last Name</label>
-                              <input type="text" class="form-control" id="last" required>
+                              <input type="text" class="form-control" id="last" required name="last">
                             </div>
                             <div class="col-12">
                               <label for="exampleFormControlInput1" class="form-label">Email address</label>
-                              <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+                              <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com" name="email">
                             </div>
                             <div class="col-12">
                               <label for="exampleFormControlTextarea1" class="form-label">Message</label>
                               <textarea class="form-control" id="exampleFormControlTextarea1" rows="5" style="text-align:center" name="message">Hi!, I'm interested in "{{row.name}}" , Can i get more information about the product. Thank you!</textarea>
                             </div>
                             <input type="hidden" value="{{row.id}}" name="id">
-                            <input type="hidden" value="{{row.email}}" name="email">
 
                             <div class="col-12">
                               <button type="submit" class="btn btn-primary">Send</button>

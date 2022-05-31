@@ -38,7 +38,7 @@
                                         <div class="modal-body">
                                         <p>{{row.description}}.</p>
                                         <p>Price: {{row.price | usd}}</p>
-                                        <button class="btn btn-primary" data-bs-target="#c{{row.id}}" data-bs-toggle="modal">Contact Seller</button>
+                                        <button class="btn btn-outline-info" data-bs-target="#c{{row.id}}" data-bs-toggle="modal">Contact Seller</button>
                                         </div>
                                         <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -80,8 +80,8 @@
                                                 </div>
                                                 <input type="hidden" value="{{row.id}}" name="id">
 
-                                                <div class="col-12">
-                                                    <button type="submit" class="btn btn-primary">Send</button>
+                                                <div class="col-12" style="margin-top:5px ;">
+                                                    <button type="submit" class="btn btn-success">Send</button>
                                                 </div>
                                                 </form>
 

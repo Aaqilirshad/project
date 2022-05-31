@@ -91,7 +91,7 @@ Home
                             <p>{{row.description}}.</p>
                             <p style="font-weight: bold;">Category: {{row.catergory}}.</p>
                             <p style="font-weight: bold; color:green">Price: {{row.price | usd}}</p>
-                            <button class="btn btn-primary" data-bs-target="#c{{row.id}}" data-bs-toggle="modal">Contact Seller</button>
+                            <button class="btn btn-outline-info" data-bs-target="#c{{row.id}}" data-bs-toggle="modal">Contact Seller</button>
                           </div>
                           <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -135,8 +135,8 @@ Home
                             </div>
                             <input type="hidden" value="{{row.id}}" name="id">
 
-                            <div class="col-12">
-                              <button type="submit" class="btn btn-primary">Send</button>
+                            <div class="col-12" style="margin-top:5px ;">
+                              <button type="submit" class="btn btn-success">Send</button>
                             </div>
                           </form>
 

@@ -37,11 +37,7 @@ mail = Mail(app)
 #filter
 app.jinja_env.filters["usd"] = usd
 
-uri = os.getenv("DATABASE_URL")
-if uri.startswith("postgres://"):
-    uri = uri.replace("postgres://", "postgresql://")
-db = SQL(uri)
-
+db = SQL("sqlite:///shopper.db")
 categories = [
     "Automotive",
     "Clothing&Fashion",

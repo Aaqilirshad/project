@@ -1,8 +1,9 @@
 cs50
-flask
-flask_session
-flask_mail
+Flask
+Flask-Session
+Flask-Mail
 jinja2
 sqlparse
 requests
 gunicorn
+psycopg2

@@ -1,4 +1,8 @@
 cs50
 Flask
 Flask-Session
+Flask-Mail
+jinja2
+sqlparse
 requests
+gunicorn

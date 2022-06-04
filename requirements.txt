@@ -7,3 +7,5 @@ sqlparse
 requests
 gunicorn
 psycopg2
+Werkzueg
+tempfile

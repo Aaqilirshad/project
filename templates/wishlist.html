@@ -10,7 +10,6 @@
             <tr>
                 <th scope="col">Product Name</th>
                 <th scope="col">Price</th>
-                <th scope="col">Catergory</th>
                 <th scope="col"></th>
                 <th scope="col"></th>
             </tr>
@@ -19,9 +18,8 @@
                 {% for row in rows %}
             <tr>
                 <td>{{row.name}}</td>
-                <td>{{ row.price | usd}}</td>
-                <td>{{ row.catergory }}</td>
-                <td><button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#P{{row.id}}">View More</button></td>
+                <td style="font-weight: bold; color:green">{{ row.price | usd}}</td>
+                <td><button type="button" class="btn btn-outline-dark btn-sm" data-bs-toggle="modal" data-bs-target="#P{{row.id}}">View More</button></td>
                 <td>
                     <form action="/remove" method="post">
                     <input type="hidden" value="{{row.id}}" name="id"> <button type="submit" class="btn-close" aria-label="Close"></button>
@@ -37,7 +35,8 @@
                                         </div>
                                         <div class="modal-body">
                                         <p>{{row.description}}.</p>
-                                        <p>Price: {{row.price | usd}}</p>
+                                        <p style="font-weight: bold;">Category: {{row.catergory}}.</p>
+                                        <p style="font-weight: bold; color:green">Price: {{row.price | usd}}</p>
                                         <button class="btn btn-outline-info" data-bs-target="#c{{row.id}}" data-bs-toggle="modal">Contact Seller</button>
                                         </div>
                                         <div class="modal-footer">

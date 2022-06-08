@@ -228,10 +228,12 @@ def search():
 
 @app.route("/contact", methods=["GET", "POST"])
 def contact():
-    rows = db.execute("SELECT * FROM products WHERE id= ?", request.form.get("id"))
-    msg = Message(rows[0]["name"], recipients=[rows[0]["email"]])
-   # msg.body = request.form.get("message")
-    msg.html = render_template("mail.html", message=request.form.get("message"),
-    first=request.form.get("first"), last=request.form.get("last"), email=request.form.get("email"), product=rows[0]["name"], price=rows[0]["price"])
-    mail.send(msg)
-    return redirect("/")
+    try:
+        rows = db.execute("SELECT * FROM products WHERE id= ?", request.form.get("id"))
+        msg = Message(rows[0]["name"], recipients=[rows[0]["email"]])
+        msg.html = render_template("mail.html", message=request.form.get("message"),
+        first=request.form.get("first"), last=request.form.get("last"), email=request.form.get("email"), product=rows[0]["name"], price=rows[0]["price"])
+        mail.send(msg)
+        return redirect("/")
+    except:
+        return apology("Something went wrong, Could not send message!", 403)

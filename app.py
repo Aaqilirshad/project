@@ -1,6 +1,6 @@
 import os
 from cs50 import SQL
-from flask import Flask, flash, redirect, render_template, request, session
+from flask import Flask, flash, redirect, render_template, request, session, flash
 from flask_session import Session
 from tempfile import mkdtemp
 from werkzeug.security import check_password_hash, generate_password_hash
@@ -81,7 +81,7 @@ def sell():
         #insert into database
         db.execute("INSERT INTO products (user_id, name, catergory, description, price, email) VALUES (?,?,?,?,?,?)",
         session["user_id"], request.form.get("product_name"), request.form.get("catergory"), request.form.get("description"), price, request.form.get("email"))
-
+        flash("Your item has been posted!")
         return redirect("/")
     else:
         return render_template("sell.html", categories=categories)
@@ -153,6 +153,7 @@ def register():
         #log user in
         rows = db.execute("SELECT * FROM users WHERE username = ?", username)
         session["user_id"] = rows[0]["id"]
+        flash("Succesfully Resgistered!")
         return redirect("/")
     else:
         return render_template("register.html")
@@ -234,6 +235,8 @@ def contact():
         msg.html = render_template("mail.html", message=request.form.get("message"),
         first=request.form.get("first"), last=request.form.get("last"), email=request.form.get("email"), product=rows[0]["name"], price=rows[0]["price"])
         mail.send(msg)
+        flash("Message Sent!")
         return redirect("/")
     except:
-        return apology("Something went wrong, Could not send message!", 403)
+        flash("OOPS! Something went wrong, Could not send message.")
+        return redirect("/")

@@ -21,7 +21,8 @@
                       </div>
                       <div class="modal-body">
                         <p>{{row.description}}.</p>
-                        <p>Price: {{row.price | usd}}</p>
+                        <p style="font-weight: bold;">Category: {{row.catergory}}.</p>
+                        <p style="font-weight: bold; color:green">Price: {{row.price | usd}}</p>
                         <button class="btn btn-outline-info" data-bs-target="#c{{row.id}}" data-bs-toggle="modal">Contact Seller</button>
                       </div>
                       <div class="modal-footer">
@@ -65,7 +66,7 @@
                                 <input type="hidden" value="{{row.id}}" name="id">
 
                                 <div class="col-12" style="margin-top:5px ;">
-                                  <button type="submit" class="btn btn-success">Send</button>
+                                  <button type="submit" class="btn btn-success">Send <i class="material-icons" style="position: relative; top:2px; font-size:medium">send</i></button>
                                 </div>
                               </form>
 

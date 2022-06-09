@@ -5,7 +5,7 @@
 {% block main %}
 <div class="container">
     <p style="font-size:40px; font-family: 'Comfortaa', cursive; font-size:xx-large; text-align:center;">Sell Your Item!</p>
-    <form action="/sell" method="post">
+    <form action="/sell" method="post" enctype="multipart/form-data">
         <div class="row g-2">
             <div class="col-md">
               <div class="form-floating">
@@ -30,7 +30,7 @@
             <textarea class="form-control" placeholder="Description" id="floatingTextarea2" style="height: 100px" name="description"></textarea>
             <label for="floatingTextarea2">Description</label>
           </div>
-
+          
           <div class="input-group mb-3" style="margin-top:20px;">
             <span class="input-group-text">Rs.</span>
             <input type="number" class="form-control" min="0" max="1000000" step="1" id="priceform" placeholder="Price" name="price" required>

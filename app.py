@@ -1,11 +1,12 @@
 import os
 from cs50 import SQL
-from flask import Flask, flash, redirect, render_template, request, session, flash
+from flask import Flask, flash, redirect, render_template, request, session, flash, url_for
 from flask_session import Session
 from tempfile import mkdtemp
 from werkzeug.security import check_password_hash, generate_password_hash
 from helpers import login_required, apology, usd
 from flask_mail import Mail, Message
+from werkzeug.utils import secure_filename
 
 
 #configure application
@@ -52,6 +53,11 @@ categories = [
     "Stationaries",
     "Other"
     ]
+
+#image upload config
+UPLOAD_FOLDER = 'static/uploads'
+ALLOWED_EXTENSIONS = {'jpg'}
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 
 @app.after_request
@@ -153,7 +159,7 @@ def register():
         #log user in
         rows = db.execute("SELECT * FROM users WHERE username = ?", username)
         session["user_id"] = rows[0]["id"]
-        flash("Succesfully Resgistered!")
+        flash("Successfully Registered!")
         return redirect("/")
     else:
         return render_template("register.html")

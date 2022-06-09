@@ -14,7 +14,7 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Acme&family=Bangers&family=Comfortaa:wght@300&display=swap" rel="stylesheet">
-    
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     </head>
 
      <body>
@@ -47,7 +47,7 @@
             </ul>
             <form class="d-flex" action="/search" method="get">
               <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="q">
-              <button class="btn btn-outline-success" type="submit">Search</button>
+              <button class="btn btn-outline-success" type="submit"><i class="material-icons" style="position: relative; top:2px; ">search</i></button>
             </form>
             <div class="me-3">
             <ul class="navbar-nav ms-2 mt-1">
@@ -67,10 +67,27 @@
       {% with messages = get_flashed_messages() %}
         {% if messages%}
           {% for msg in messages %}
-        <div class="alert alert-warning alert-dismissible fade show" role="alert">
-          <strong>{{ msg }}</strong>.
-          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
+              {% if msg == 'OOPS! Something went wrong, Could not send message.'%}
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                  <i class="material-icons" style="position: relative; top:5px;">info</i><strong>  {{ msg }}</strong>
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+              {% elif msg == 'Your item has been posted!'%}
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                  <i class="material-icons" style="position: relative; top:5px;">task_alt</i><strong>  {{ msg }}</strong>
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+              {% elif msg == 'Successfully Registered!'%}
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                  <i class="material-icons" style="position: relative; top:5px;">how_to_reg</i><strong>  {{ msg }}</strong>
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+              {% elif msg == 'Message Sent!'%}
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                  <i class="material-icons" style="position: relative; top:5px;">mark_chat_read</i><strong>  {{ msg }}</strong>
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+              {% endif %}
           {% endfor %}
         {% endif %}
       {% endwith %}

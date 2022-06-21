@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="initial-scale=1, width=device-width">
+        <title>
+            E-Store: {% block title %}{% endblock %}
+        </title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+        <link type="image/png" sizes="32x32" rel="icon" href="static/icons8-buying-32.png">
+        <link href="static/styles.css" rel="stylesheet">
+        
+        <!--Google fonts-->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Acme&family=Bangers&family=Bebas+Neue&family=Comfortaa:wght@300&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    </head>
+
+     <body>
+       <!--include script file-->
+       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+       <!--script file included-->
+
+       <nav class="navbar navbar-expand-lg bg-light" id="nav-bar">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="/"><span style="font-family: 'Bangers', cursive; font-size:50px; color:rgb(3, 165, 3); text-shadow: 2px 2px 8px #000000">E</span><span style="font-family: 'Bangers', cursive; font-size:40px; color:rgb(232, 232, 232); text-shadow: 2px 2px 8px #000000">-$tore</span> </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            {% if session["user_id"] %}
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item" style="margin-left: 20px;">
+                <a class="nav-link" aria-current="page" href="/"> Home </a>
+              </li>
+              <li class="nav-item" style="margin-left: 20px;">
+                <a class="nav-link" aria-current="page" href="/sell"> Sell your item </a>
+              </li>
+              <li class="nav-item" style="margin-left: 20px;">
+                <a class="nav-link" href="/wishlist"> Wishlist </a>
+              </li>
+              
+              <li class="nav-item" style="margin-left: 20px;">
+                <a class="nav-link" href="/myitems"> My Items </a>
+              </li>
+            </ul>
+            <form class="d-flex" action="/search" method="get">
+              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name="q">
+              <button class="btn btn-outline-success" type="submit"><i class="material-icons" style="position: relative; top:2px; ">search</i></button>
+            </form>
+            <div class="me-3">
+            <ul class="navbar-nav ms-2 mt-1">
+              <li class="nav-item"><a class="nav-link" href="/logout">Log Out</a></li>
+            </ul>
+            </div>
+            {% else %}
+            <ul class="navbar-nav ms-auto mt-2">
+              <li class="nav-item"><a class="nav-link" href="/register">Register</a></li>
+              <li class="nav-item"><a class="nav-link" href="/login">Log In</a></li>
+            </ul>
+            {% endif %}
+          </div>
+          
+        </div>
+      </nav>
+      {% with messages = get_flashed_messages() %}
+        {% if messages%}
+          {% for msg in messages %}
+              {% if msg == 'OOPS! Something went wrong, Could not send message.'%}
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                  <i class="material-icons" style="position: relative; top:5px;">info</i><strong>  {{ msg }}</strong>
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+              {% elif msg == 'Your item has been posted!'%}
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                  <i class="material-icons" style="position: relative; top:5px;">task_alt</i><strong>  {{ msg }}</strong>
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+              {% elif msg == 'Successfully Registered!'%}
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                  <i class="material-icons" style="position: relative; top:5px;">how_to_reg</i><strong>  {{ msg }}</strong>
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+              {% elif msg == 'Message Sent!'%}
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                  <i class="material-icons" style="position: relative; top:5px;">mark_chat_read</i><strong>  {{ msg }}</strong>
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+              {% endif %}
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
+
+      <main class="container-fluid py-5 text-center">
+          {% block main %}{% endblock %}
+      </main>
+
+      <footer class="mb-5 small text-center text-muted">
+          Final Project for <a href="https://cs50.harvard.edu/x/2022//">CS50</a> By Aaqil Irshad.
+      </footer>
+     </body>
+</html>

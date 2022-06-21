@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Register
+{% endblock %}
+
+{% block main %}
+    <form action="/register" method="post">
+        <div calss="mb-3" style="text-align:center; font-family: 'Comfortaa', cursive; font-size:xx-large;">
+            <p style="font-size:30px; color:gray">Register!</p>
+        </div>
+        <div calss="mb-3" style="text-align:center; margin-top:0px ;">
+            <!-- <img src="static/login.jpg" alt="login image" style="height: 60px; width:auto; margin-bottom:5px;" >-->
+            <i class="material-icons" style="font-size:50px; color:gray">group_add</i>
+         </div>
+        <div class="mb-3">
+            <input autocomplete="off" autofocus class="form-control mx-auto w-auto" id="username" name="username" placeholder="Username" type="text" required>
+        </div>
+        <div class="mb-3">
+            <input class="form-control mx-auto w-auto" id="password" name="password" placeholder="Password" type="password" required>
+        </div>
+        <div class="mb-3">
+            <input class="form-control mx-auto w-auto" id="confirmation" name="confirmation" placeholder=" Confirm Password" type="password" required>
+        </div>
+        <button class="btn btn-primary" type="submit">Register</button>
+    </form>
+    <div class="mb-3">
+        <p>Already have an account? <a href="/login" class="link-success" style="text-decoration:none">Login</a></p>
+        </div>
+{% endblock %}

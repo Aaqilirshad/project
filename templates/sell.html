@@ -1,0 +1,49 @@
+{% extends "layout.html" %}
+
+{% block title %} Sell {% endblock %}
+
+{% block main %}
+<div class="container">
+    <p style="font-size:40px; font-family: 'Comfortaa', cursive; font-size:xx-large; text-align:center;">Sell Your Item!</p>
+    <form action="/sell" method="post" enctype="multipart/form-data">
+        <div class="row g-2">
+            <div class="col-md">
+              <div class="form-floating">
+                <input type="text" class="form-control" id="floatingInputGrid" placeholder="Product Name" name="product_name" required maxlength="25" autocomplete="off">
+                <label for="floatingInputGrid">Product Name</label>
+              </div>
+            </div>
+            <div class="col-md">
+              <div class="form-floating">
+                <select class="form-select" id="floatingSelectGrid" name="catergory" required>
+                  <option selected disabled>Select catergory</option>
+                    {% for item in categories %}
+                    <option value="{{ item }}">{{ item }}</option>
+                    {% endfor %}
+                </select>
+                <label for="floatingSelectGrid">catergories</label>
+              </div>
+            </div>
+          </div>
+          
+          <div class="form-floating" style="margin-top:20px;">
+            <textarea class="form-control" placeholder="Description" id="floatingTextarea2" style="height: 100px" name="description"></textarea>
+            <label for="floatingTextarea2">Description</label>
+          </div>
+          
+          <div class="input-group mb-3" style="margin-top:20px;">
+            <span class="input-group-text">Rs.</span>
+            <input type="number" class="form-control" min="0" max="1000000" step="1" id="priceform" placeholder="Price" name="price" required>
+          </div>
+
+          <div class="form-floating mb-3" style="margin-top:30px;">
+            <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" name="email" required>
+            <label for="floatingInput">Email address</label>
+          </div>
+
+          <div class="d-grid gap-2">
+            <input type="submit" class="btn btn-outline-secondary">
+          </div>
+      </form>
+</div>
+{% endblock %}

@@ -1,0 +1,26 @@
+#center-small{
+    width: 200px;
+    height: 200px;
+    
+}
+.top-sp{
+    margin-top: 35px;
+}
+#fashion-card{
+    background-image: url(watch.jpg);
+    background-position: right;
+}
+#nav-bar{
+    background-image: url(header.jpg);
+    background-position: left;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.divitem{
+    background-color: aqua;
+    height: 250px;
+    width: 250px;
+    border: 2px;
+    float: left;
+    margin: 20px;
+}

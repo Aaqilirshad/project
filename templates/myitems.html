@@ -1,0 +1,94 @@
+{% extends "layout.html" %}
+
+{% block title %}My Items{% endblock %}
+
+{% block main %}
+
+{% if not items %}
+<p>You haven't posted any items yet!</p>
+{% endif %}
+<div class="row row-cols-1 row-cols-sm-2 row-cols-md-4">
+    {% for row in items %}
+    <div class="d-flex justify-content-evenly" style="margin-top:30px;">
+
+        <div class="card mb-3" style="max-width: 540px;">
+            <div class="row g-0">
+            <div class="col-md-4">
+                <img src="static/cart.jpg" class="img-fluid rounded-start" alt="...">
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                <h5 class="card-title">{{ row.name }}</h5>
+                <p class="card-text">{{ row.description }}</p>
+                <p class="card-text"><small class="text-muted">Price : {{ row.price | usd}}</small></p>
+                
+                <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#e{{row.id}}">Edit</button> 
+                <button type="button" class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#r{{row.id}}">Remove</button> 
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="modal fade" id="r{{row.id}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="staticBackdropLabel">Remove Item</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <p>Are you sure want to remove <strong>{{ row.name }}</strong>?</p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">No</button>
+              <form action="/myitems" method="post">
+                <input type="hidden" value="{{ row.id }}" name="id">
+                <input type="submit" value="Yes" class="btn btn-outline-secondary btn-sm">
+              </form>
+            </div>
+          </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="e{{row.id}}" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalToggleLabel2">Edit Details</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+             <!--Body content goes here-->
+                        <form class="row g-3" action="/edit" method="post">
+                          <div class="col-12">
+                            <label for="name" class="form-label">Product Name</label>
+                            <input type="text" class="form-control" id="name" required name="name" value="{{ row.name }}">
+                          </div>
+                          <div class="col-12">
+                            <label for="exampleFormControlTextarea1" class="form-label">Description</label>
+                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="5" style="text-align:center" name="description">{{ row.description }}.</textarea>
+                          </div>
+                          <div class="col-12">
+                            <div class="input-group">
+                                <span class="input-group-text">Rs.</span>
+                                <input type="number" class="form-control" min="0" max="1000000" step="1" id="priceform" placeholder="Price" name="price" required value="{{ row.price }}">
+                            </div>
+                          </div>
+                          <input type="hidden" value="{{row.id}}" name="id">
+
+                          <div class="col-12" style="margin-top:5px ;">
+                            <button type="submit" class="btn btn-success">Save Changes</button>
+                          </div>
+                        </form>
+
+            </div>
+            <div class="modal-footer">
+              <button class="btn btn-primary" data-bs-toggle="modal">Close</button>
+            </div>
+          </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

@@ -62,11 +62,11 @@
              <!--Body content goes here-->
                         <form class="row g-3" action="/edit" method="post">
                           <div class="col-12">
-                            <label for="name" class="form-label">Product Name</label>
+                            <label for="name" class="form-label"><strong>Product Name</strong></label>
                             <input type="text" class="form-control" id="name" required name="name" value="{{ row.name }}">
                           </div>
                           <div class="col-12">
-                            <label for="exampleFormControlTextarea1" class="form-label">Description</label>
+                            <label for="exampleFormControlTextarea1" class="form-label"><strong>Description</strong></label>
                             <textarea class="form-control" id="exampleFormControlTextarea1" rows="5" style="text-align:center" name="description">{{ row.description }}.</textarea>
                           </div>
                           <div class="col-12">

@@ -27,7 +27,7 @@ app.config["MAIL_PORT"] = 465
 app.config["MAIL_USE_TLS"] = False
 app.config["MAIL_USE_SSL"] = True
 app.config["MAIL_USERNAME"] = 'info.estore50@gmail.com'
-app.config["MAIL_PASSWORD"] = 'icecream18106'
+app.config["MAIL_PASSWORD"] = 'funnjppcfzpyrhph'
 app.config["MAIL_DEFAULT_SENDER"] = ('E-Store', 'info.estore50@gmail.com')
 app.config["MAIL_ASCII_ATTACHMENTS"] = False
 app.config["MAIL_DEBUG"] = True
@@ -125,7 +125,10 @@ def login():
 
         # Ensure username exists and password is correct
         if len(rows) != 1 or not check_password_hash(rows[0]["hash"], request.form.get("password")):
-            return apology("invalid username and/or password", 403)
+           #return apology("invalid username and/or password", 403)
+            flash("invalid username and/or password!")
+            return render_template("login.html")
+
 
         # Remember which user has logged in
         session["user_id"] = rows[0]["id"]

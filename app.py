@@ -123,7 +123,7 @@ def login():
         # Query database for username
         rows = db.execute("SELECT * FROM users WHERE username = ?", request.form.get("username"))
 
-        # Ensure username exists and password is correct
+        # Ensure username exists and password is correct.
         if len(rows) != 1 or not check_password_hash(rows[0]["hash"], request.form.get("password")):
            #return apology("invalid username and/or password", 403)
             flash("invalid username and/or password!")

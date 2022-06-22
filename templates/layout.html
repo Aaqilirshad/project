@@ -94,10 +94,18 @@
 
       <main class="container-fluid py-5 text-center">
           {% block main %}{% endblock %}
+          <div class="d-flex justify-content-center">
+            <div class="spinner-border m-5" role="status" id="loading">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+          </div>
       </main>
 
       <footer class="mb-5 small text-center text-muted">
           Final Project for <a href="https://cs50.harvard.edu/x/2022//">CS50</a> By Aaqil Irshad.
       </footer>
+      <script>
+        window.onload = function(){ document.getElementById("loading").style.display = "none" }
+      </script>
      </body>
 </html>
